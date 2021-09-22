@@ -12,9 +12,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.aransafp.myuser.R
-import com.aransafp.myuser.ui.UserViewModel
 import com.aransafp.myuser.data.entity.User
 import com.aransafp.myuser.databinding.FragmentUpdateBinding
+import com.aransafp.myuser.ui.UserViewModel
+import com.aransafp.myuser.utils.ViewModelFactory
 
 
 class UpdateFragment : Fragment() {
@@ -30,13 +31,9 @@ class UpdateFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentUpdateBinding.inflate(inflater, container, false)
-        binding.edtFirstName
 
-        with(binding) {
-            edtFirstName.setText(args.currentUser.firstName)
-            edtLastName.setText(args.currentUser.lastName)
-            edtAge.setText(args.currentUser.age.toString())
-        }
+        val factory = ViewModelFactory.getInstance(requireContext())
+        userViewModel = ViewModelProvider(this, factory)[UserViewModel::class.java]
 
         return binding.root
     }
@@ -44,7 +41,11 @@ class UpdateFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
+        with(binding) {
+            edtFirstName.setText(args.currentUser.firstName)
+            edtLastName.setText(args.currentUser.lastName)
+            edtAge.setText(args.currentUser.age.toString())
+        }
 
         binding.btnSubmit.setOnClickListener {
             updateUser()
@@ -53,9 +54,9 @@ class UpdateFragment : Fragment() {
 
     private fun updateUser() {
         with(binding) {
-            val firstName = binding.edtFirstName.text.toString()
-            val lastName = binding.edtLastName.text.toString()
-            val age = binding.edtAge.text
+            val firstName = edtFirstName.text.toString()
+            val lastName = edtLastName.text.toString()
+            val age = edtAge.text
 
             if (inputCheck(firstName, lastName, age)) {
                 //update User
@@ -74,7 +75,6 @@ class UpdateFragment : Fragment() {
 
         }
     }
-
 
     private fun inputCheck(firstName: String, lastName: String, age: Editable): Boolean {
         return !(TextUtils.isEmpty(firstName) && TextUtils.isEmpty(lastName) && age.isEmpty())

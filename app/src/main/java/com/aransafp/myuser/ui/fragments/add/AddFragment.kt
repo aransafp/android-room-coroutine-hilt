@@ -14,6 +14,7 @@ import com.aransafp.myuser.R
 import com.aransafp.myuser.data.entity.User
 import com.aransafp.myuser.databinding.FragmentAddBinding
 import com.aransafp.myuser.ui.UserViewModel
+import com.aransafp.myuser.utils.ViewModelFactory
 
 class AddFragment : Fragment() {
 
@@ -34,7 +35,8 @@ class AddFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
+        val factory = ViewModelFactory.getInstance(requireContext())
+        userViewModel = ViewModelProvider(this, factory)[UserViewModel::class.java]
 
         binding.btnSubmit.setOnClickListener {
             insertDataToDatabase()

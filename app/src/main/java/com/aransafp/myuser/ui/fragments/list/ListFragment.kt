@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aransafp.myuser.R
 import com.aransafp.myuser.databinding.FragmentListBinding
 import com.aransafp.myuser.ui.UserViewModel
+import com.aransafp.myuser.utils.ViewModelFactory
 
 class ListFragment : Fragment() {
 
@@ -26,6 +27,9 @@ class ListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentListBinding.inflate(inflater, container, false)
+
+        val factory = ViewModelFactory.getInstance(requireContext())
+        userViewModel = ViewModelProvider(this, factory)[UserViewModel::class.java]
 
         return binding.root
     }
@@ -41,7 +45,7 @@ class ListFragment : Fragment() {
         }
 
         //viewModel
-        userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
+
         userViewModel.readAllData.observe(viewLifecycleOwner, { users ->
             adapter.setData(users)
         })
