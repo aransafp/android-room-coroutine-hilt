@@ -3,8 +3,9 @@ package com.aransafp.myuser.data
 import androidx.lifecycle.LiveData
 import com.aransafp.myuser.data.entity.User
 import com.aransafp.myuser.data.room.UserDao
+import javax.inject.Inject
 
-class UserRepository(private val userDao: UserDao) {
+class UserRepository @Inject constructor(private val userDao: UserDao) {
 
     val readAllData: LiveData<List<User>> = userDao.getAllUser()
 

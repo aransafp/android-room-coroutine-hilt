@@ -11,23 +11,4 @@ abstract class UserDatabase : RoomDatabase() {
 
     abstract fun userDao(): UserDao
 
-    companion object {
-
-        @Volatile
-        private var INSTANCE: UserDatabase? = null
-
-        fun getInstance(context: Context): UserDatabase =
-            INSTANCE ?: synchronized(this) {
-                Room.databaseBuilder(
-                    context.applicationContext,
-                    UserDatabase::class.java,
-                    "user_database"
-                )
-            }.build().apply {
-                INSTANCE = this
-            }
-
-    }
-
-
 }

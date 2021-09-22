@@ -8,22 +8,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.aransafp.myuser.R
 import com.aransafp.myuser.data.entity.User
 import com.aransafp.myuser.databinding.FragmentUpdateBinding
 import com.aransafp.myuser.ui.UserViewModel
-import com.aransafp.myuser.utils.ViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class UpdateFragment : Fragment() {
 
     private var _binding: FragmentUpdateBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var userViewModel: UserViewModel
+    private val userViewModel: UserViewModel by viewModels()
     private val args by navArgs<UpdateFragmentArgs>()
 
     override fun onCreateView(
@@ -31,9 +31,6 @@ class UpdateFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentUpdateBinding.inflate(inflater, container, false)
-
-        val factory = ViewModelFactory.getInstance(requireContext())
-        userViewModel = ViewModelProvider(this, factory)[UserViewModel::class.java]
 
         return binding.root
     }

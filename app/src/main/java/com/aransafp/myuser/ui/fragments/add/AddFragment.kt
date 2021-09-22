@@ -8,17 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.aransafp.myuser.R
 import com.aransafp.myuser.data.entity.User
 import com.aransafp.myuser.databinding.FragmentAddBinding
 import com.aransafp.myuser.ui.UserViewModel
-import com.aransafp.myuser.utils.ViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AddFragment : Fragment() {
 
-    private lateinit var userViewModel: UserViewModel
+    private val userViewModel: UserViewModel by viewModels()
 
     private var _binding: FragmentAddBinding? = null
     private val binding get() = _binding!!
@@ -34,9 +35,6 @@ class AddFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val factory = ViewModelFactory.getInstance(requireContext())
-        userViewModel = ViewModelProvider(this, factory)[UserViewModel::class.java]
 
         binding.btnSubmit.setOnClickListener {
             insertDataToDatabase()

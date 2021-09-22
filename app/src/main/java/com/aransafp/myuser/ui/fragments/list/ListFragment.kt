@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,23 +13,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aransafp.myuser.R
 import com.aransafp.myuser.databinding.FragmentListBinding
 import com.aransafp.myuser.ui.UserViewModel
-import com.aransafp.myuser.utils.ViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ListFragment : Fragment() {
 
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var userViewModel: UserViewModel
+    private val userViewModel: UserViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentListBinding.inflate(inflater, container, false)
-
-        val factory = ViewModelFactory.getInstance(requireContext())
-        userViewModel = ViewModelProvider(this, factory)[UserViewModel::class.java]
 
         return binding.root
     }

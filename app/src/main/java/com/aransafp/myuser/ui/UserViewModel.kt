@@ -5,10 +5,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aransafp.myuser.data.UserRepository
 import com.aransafp.myuser.data.entity.User
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
+@HiltViewModel
+class UserViewModel @Inject constructor(private val userRepository: UserRepository) : ViewModel() {
 
     val readAllData: LiveData<List<User>> = userRepository.readAllData
 
