@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.aransafp.myuser.R
 import com.aransafp.myuser.data.entity.User
 import com.aransafp.myuser.databinding.ItemUserBinding
 
@@ -46,7 +47,8 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.ViewHolder>() {
                 tvId.text = user.id.toString()
                 tvFirstName.text = user.firstName
                 tvLastName.text = user.lastName
-                tvAge.text = user.age.toString()
+                tvAge.text =
+                    itemView.resources.getString(R.string.age_placeholder, user.age.toString())
             }
 
             itemView.setOnClickListener {

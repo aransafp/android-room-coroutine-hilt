@@ -47,26 +47,26 @@ class AddFragment : Fragment() {
         with(binding) {
             val firstName = edtFirstName.text.toString()
             val lastName = edtLastName.text.toString()
-            val age = edtAge.text
+            val age = edtAge.text.toString()
 
             if (inputCheck(firstName, lastName, age)) {
 
-                val user = User(0, firstName, lastName, age.toString().toInt())
+                val user = User(0, firstName, lastName, age.toInt())
                 //add to database
                 userViewModel.addUser(user)
-                Toast.makeText(requireContext(), "Succesfully Added!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Added successfully", Toast.LENGTH_SHORT).show()
 
                 //Navigate back
                 findNavController().navigate(R.id.action_addFragment_to_listFragment)
             } else {
-                Toast.makeText(requireContext(), "Failed Added!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Failed to add", Toast.LENGTH_SHORT).show()
             }
         }
 
     }
 
-    private fun inputCheck(firstName: String, lastName: String, age: Editable): Boolean {
-        return !(TextUtils.isEmpty(firstName) && TextUtils.isEmpty(lastName) && age.isEmpty())
+    private fun inputCheck(firstName: String, lastName: String, age: String): Boolean {
+        return !(TextUtils.isEmpty(firstName) && TextUtils.isEmpty(lastName) && TextUtils.isEmpty(age))
     }
 
 }

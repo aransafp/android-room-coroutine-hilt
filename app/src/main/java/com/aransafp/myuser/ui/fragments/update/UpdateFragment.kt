@@ -53,27 +53,27 @@ class UpdateFragment : Fragment() {
         with(binding) {
             val firstName = edtFirstName.text.toString()
             val lastName = edtLastName.text.toString()
-            val age = edtAge.text
+            val age = edtAge.text.toString()
 
             if (inputCheck(firstName, lastName, age)) {
                 //update User
-                val user = User(args.currentUser.id, firstName, lastName, age.toString().toInt())
+                val user = User(args.currentUser.id, firstName, lastName, age.toInt())
 
                 //update to room
                 userViewModel.updateUser(user)
-                Toast.makeText(requireContext(), "Succesfully Added!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Updated successfully", Toast.LENGTH_SHORT).show()
 
                 //navigate back
                 findNavController().navigate(R.id.action_updateFragment_to_listFragment)
 
             } else {
-                Toast.makeText(requireContext(), "fail update", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Failed to update", Toast.LENGTH_SHORT).show()
             }
 
         }
     }
 
-    private fun inputCheck(firstName: String, lastName: String, age: Editable): Boolean {
-        return !(TextUtils.isEmpty(firstName) && TextUtils.isEmpty(lastName) && age.isEmpty())
+    private fun inputCheck(firstName: String, lastName: String, age: String): Boolean {
+        return !(TextUtils.isEmpty(firstName) && TextUtils.isEmpty(lastName) && TextUtils.isEmpty(age))
     }
 }
